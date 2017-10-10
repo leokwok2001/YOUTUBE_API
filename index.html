@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	
+	<link href="jquery-ui.css" rel="stylesheet">
+	<style>
+	body{
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	</style>
+</head>
+<body>
+  <div id="player"></div>
+	<div id="timer">0</div>
+
+<!-- Accordion -->
+
+
+
+	<div id="accordion">
+	
+	<h3 id="acc-header-01">100-200秒: 驚聞愛女遭校園槍擊亡華州家長被惡整</h3>
+	<div id="acc-panel-01">中央社即時新聞-2017年9月20日
+美國華盛頓州羅克福德弗里曼高中（圖）13日驚傳校園槍擊，有家長焦急尋找女兒，卻接到假簡訊告知女兒死訊。（圖取自Google地圖 </div>
+	
+	<h3 id="acc-header-02">201-300秒:聯合國促伊北庫德族捨棄公投展開對話
+</h3>
+	<div id="acc-panel-02">首府設在伊拉克北部城市阿比爾的庫德自治區政府，因石油出口、預算支付以及掌控地區等議題與聯邦政府陷入長期爭執。 （圖取自Google地圖 .</div>
+	
+	<h3 id="acc-header-03">301-400秒:header 3</h3>
+	<div id="acc-panel-03">text3</div>
+	
+	<h3 id="acc-header-04">401-500秒:header 4</h3>
+	<div id="acc-panel-04">text 4</div>
+	
+	<h3 id="acc-header-05">大過501秒:header 5</h3>
+	<div id="acc-panel-05">text 5</div>
+	
+	</div>
+
+<script src="jquery.js"></script>
+<script src="jquery-ui.js"></script>
+<script src ="https://www.youtube.com/iframe_api"></script>
+<script>
+
+$( "#accordion" ).accordion();
+
+
+</script>
+
+<script>
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'M7lc1UVf-VE' ,
+			events: {
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+	
+	function onPlayerStateChange(event) {
+		if (event.data !=1) {
+			clearInterval(timer)
+			ceckTime()
+		} else if (event.data == 1) {
+			timer = setInterval(checkTimeByTippingPoint, 500)
+		}
+	}
+	
+	  var timer = setInterval(checkTime, 500)
+	  function checkTimeByTippingPoint(){
+	    var time = player.getCurrentTime()
+		$('#timer').empty().append(time)
+		
+		if (
+			(time > 99 && time < 101) || 
+			(time > 199 && time < 201) || 
+			(time > 299 && time <301) || 
+			(time > 399 && time <401) || 
+			(time > 499 && time <501) )
+		{
+		compareTime(time) 
+		}
+	  }
+	  
+	    function checkTime(){
+	    var time = player.getCurrentTime()
+		$('#timer').empty().append(time)
+		compareTime(time)
+	  }
+	  
+	  
+	  
+	  function compareTime(time)
+	  {
+		if (time<100) {
+				$('#acc-header-01').click()
+		} else if (time >= 100 && time < 200) {
+				$('#acc-header-01').click()
+		} else if (time >= 200 && time < 300) {
+				$('#acc-header-02').click()
+		} else if (time >= 300 && time < 400) {
+				$('#acc-header-03').click()
+		} else  if (time > 400 && time < 500) {
+				$('#acc-header-04').click()
+		} else if (time > 500 ) {
+				$('#acc-header-05').click()
+		}
+	  
+
+		}
+	  
+	 
+	  
+	  
+ </script>
+
+</body>
+</html>
